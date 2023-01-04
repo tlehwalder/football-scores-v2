@@ -1,21 +1,14 @@
 import { useContext } from "react";
-import Link from "next/link";
-import ThemeContext, { THEME_DARK } from "../context/ThemeContext";
 
-const MatchDayNavigaiton = ({ matchDay }) => {
-  const theme = useContext(ThemeContext);
-
+const MatchDayNavigaiton: React.FC<{matchDay: string}> = ({ matchDay }) => {
+  const matchDayAsInt = parseInt(matchDay);
   return (
     <div>
-      {matchDay >= 1 ? (
-        <Link href={`/${parseInt(matchDay) - 1}`}>
-          <a className="triangle-left" title="previous matchday"></a>
-        </Link>
+      {matchDayAsInt >= 1 ? (
+          <a href={`/${matchDayAsInt - 1}`} title="previous matchday">prev</a>
       ) : null}
-      {matchDay <= 33 ? (
-        <Link href={`/${parseInt(matchDay) + 1}`}>
-          <a className="triangle-right" title="next matchday"></a>
-        </Link>
+      {matchDayAsInt <= 33 ? (
+          <a href={`/${matchDayAsInt + 1}`} title="next matchday">next</a>
       ) : null}
     </div>
   );

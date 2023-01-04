@@ -1,6 +1,6 @@
 import React from "react";
 
-const Header = ({ matchDay }) => (
+const Header: React.FC<{ matchDay: string }> = ({ matchDay }) => (
   <>
     <header>
       <h1>
@@ -11,4 +11,4 @@ const Header = ({ matchDay }) => (
   </>
 );
 
-export default Header;
+export { Header };

@@ -2,10 +2,12 @@ import { useState } from "react";
 import isEmpty from "lodash/isEmpty";
 
 import GoalList from "./GoalList";
-import { Match } from "../types.entry";
+import { Match } from "../types/entry";
 
-const MatchEntry = ({ match }: { match: Match }) => {
+const MatchEntry: React.FC<{ match: Match }> = ({ match }) => {
   const [isGoalListShown, setGoalListShown] = useState(false);
+
+  if(match.MatchResults.length === 0) return null;
 
   const fallbackPoints = (points?: string) => points ?? "-";
   const teamHomePoints = fallbackPoints(
@@ -61,4 +63,4 @@ const MatchEntry = ({ match }: { match: Match }) => {
   );
 };
 
-export default MatchEntry;
+export { MatchEntry};
