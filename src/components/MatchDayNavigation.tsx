@@ -1,17 +1,27 @@
-import { useContext } from "react";
+import React from 'react';
 
-const MatchDayNavigaiton: React.FC<{matchDay: string}> = ({ matchDay }) => {
-  const matchDayAsInt = parseInt(matchDay);
+const MatchDayNavigation: React.FC<{ matchDay?: string }> = ({ matchDay }) => {
+  const matchDayAsInt = parseInt(matchDay ?? '');
+  const isNotFirstMatchDay = matchDayAsInt >= 1;
+  const isNotLastMatchDay = matchDayAsInt <= 33;
   return (
-    <div>
-      {matchDayAsInt >= 1 ? (
-          <a href={`/${matchDayAsInt - 1}`} title="previous matchday">prev</a>
+    <div className='mt-8 text-3xl'>
+      {isNotFirstMatchDay ? (
+        <a href={`/${matchDayAsInt - 1}`} title='previous matchday'>
+          ⬅️
+        </a>
       ) : null}
-      {matchDayAsInt <= 33 ? (
-          <a href={`/${matchDayAsInt + 1}`} title="next matchday">next</a>
+      {isNotLastMatchDay ? (
+        <a
+          className='ml-4'
+          href={`/${matchDayAsInt + 1}`}
+          title='next matchday'
+        >
+          ➡️
+        </a>
       ) : null}
     </div>
   );
 };
 
-export default MatchDayNavigaiton;
+export { MatchDayNavigation };

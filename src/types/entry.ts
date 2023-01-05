@@ -4,7 +4,7 @@ export interface Welcome1 {
 
 export interface ArrayOfMatch {
   Match: Match[];
-  "_xmlns:i": string;
+  '_xmlns:i': string;
   _xmlns: string;
 }
 
@@ -26,9 +26,7 @@ export interface Match {
   TimeZoneID: string;
 }
 
-export interface Goals {
-  Goal: GoalElement[] | PurpleGoal;
-}
+export type Goals = GoalElement[];
 
 export interface GoalElement {
   Comment: NumberOfViewers;
@@ -44,7 +42,7 @@ export interface GoalElement {
 }
 
 export interface NumberOfViewers {
-  "_i:nil": string;
+  '_i:nil': string;
 }
 
 export interface PurpleGoal {
@@ -70,12 +68,10 @@ export interface Location {
   LocationCity?: string;
   LocationID?: string;
   LocationStadium?: string;
-  "_i:nil"?: string;
+  '_i:nil'?: string;
 }
 
-export interface MatchResults {
-  MatchResult: MatchResult[];
-}
+export type MatchResults = MatchResult[];
 
 export interface MatchResult {
   PointsTeam1: string;
@@ -88,13 +84,13 @@ export interface MatchResult {
 }
 
 export enum ResultDescription {
-  ErgebnisNachEndeDerOffiziellenSpielzeit = "Ergebnis nach Ende der offiziellen Spielzeit",
-  ZwischenstandZurHalbzeit = "Zwischenstand zur Halbzeit",
+  ErgebnisNachEndeDerOffiziellenSpielzeit = 'Ergebnis nach Ende der offiziellen Spielzeit',
+  ZwischenstandZurHalbzeit = 'Zwischenstand zur Halbzeit',
 }
 
 export enum ResultName {
-  Endergebnis = "Endergebnis",
-  Halbzeit = "Halbzeit",
+  Endergebnis = 'Endergebnis',
+  Halbzeit = 'Halbzeit',
 }
 
 export interface Team {

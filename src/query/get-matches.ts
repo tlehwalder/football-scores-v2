@@ -1,8 +1,8 @@
-import { ArrayOfMatch } from '../types/list';
+import { ArrayOfMatch } from '../types/entry';
 import { OPEN_LIGA_DB_URL } from '../config/source';
-import { GetMatchesResponse } from '../types/query';
+import { MatchDayResponse } from '../types/query';
 
-export async function getMatches(): Promise<GetMatchesResponse> {
+export async function getMatches(): Promise<MatchDayResponse> {
   const res = await fetch(OPEN_LIGA_DB_URL);
   const data: ArrayOfMatch['Match'] = await res.json();
 

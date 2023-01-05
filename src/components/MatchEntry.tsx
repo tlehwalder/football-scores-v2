@@ -1,21 +1,17 @@
-import { useState } from "react";
-import isEmpty from "lodash/isEmpty";
+import { useState } from 'react';
+import isEmpty from 'lodash/isEmpty';
 
-import GoalList from "./GoalList";
-import { Match } from "../types/entry";
+import GoalList from './GoalList';
+import { Match } from '../types/entry';
 
 const MatchEntry: React.FC<{ match: Match }> = ({ match }) => {
   const [isGoalListShown, setGoalListShown] = useState(false);
 
-  if(match.MatchResults.length === 0) return null;
+  if (match.MatchResults.length === 0) return null;
 
-  const fallbackPoints = (points?: string) => points ?? "-";
-  const teamHomePoints = fallbackPoints(
-    match.MatchResults.MatchResult[0].PointsTeam1
-  );
-  const teamAwayPoints = fallbackPoints(
-    match.MatchResults.MatchResult[0].PointsTeam2
-  );
+  const fallbackPoints = (points?: string) => points ?? '-';
+  const teamHomePoints = fallbackPoints(match.MatchResults[0].PointsTeam1);
+  const teamAwayPoints = fallbackPoints(match.MatchResults[0].PointsTeam2);
 
   const {
     Team1: teamHome,
@@ -43,18 +39,24 @@ const MatchEntry: React.FC<{ match: Match }> = ({ match }) => {
 
   return (
     <>
-      <li className="score-line-wrapper">
-        <div className="score-line">
-          <div className="score-line-element score-line-start">
-            <span className="home-team team-name">{teamHomeName}</span>
-            <img src={teamHomeIcon} />
+      <li className='flex flex-col text-xl py-2'>
+        <div className='grid grid-cols-12 w-full'>
+          <div className='flex items-center col-span-5 justify-end'>
+            <span>{teamHomeName}</span>
+            <img
+              className='h-6 object-contain ml-4'
+              src={teamHomeIcon}
+              alt={`${teamHomeName} Logo`}
+            />
           </div>
-          <div className="score-line-element score-line-inner">
-            {scoreLineInner}
-          </div>
-          <div className="score-line-element score-line-end">
-            <img src={teamAwayIcon} />
-            <span className="team-name">{teamAwayName}</span>
+          <div className='col-span-2 '>{scoreLineInner}</div>
+          <div className='flex items-center col-span-5'>
+            <img
+              className='h-6 object-contain mr-4'
+              src={teamAwayIcon}
+              alt={`${teamAwayName} Logo`}
+            />
+            <span>{teamAwayName}</span>
           </div>
         </div>
         {isGoalListShown ? <GoalList goals={goals} /> : null}
@@ -63,4 +65,4 @@ const MatchEntry: React.FC<{ match: Match }> = ({ match }) => {
   );
 };
 
-export { MatchEntry};
+export { MatchEntry };

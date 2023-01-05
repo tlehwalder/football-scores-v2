@@ -1,29 +1,41 @@
-import MatchList from "./MatchList";
-import MatchDayNavigation from "./MatchDayNavigation";
-import { ArrayOfMatch } from '../types/entry';
 import React from 'react';
-import { GetMatchesResponse } from '../types/query';
+import { useParams } from 'react-router-dom';
+
+import { MatchDayResponse } from '../types/query';
 import { getMatches } from '../query/get-matches';
-import {Header} from './Header';
+import { getMatchDay } from '../query/get-matchday';
+
+import { Header } from './Header';
+import { MatchDayNavigation } from './MatchDayNavigation';
+import { MatchList } from './MatchList';
+import { ArrayOfMatch } from '../types/entry';
 
 const MatchDay = () => {
-    const [matches, setMatches] = React.useState<ArrayOfMatch["Match"]>([]);
-    const [matchDay, setMatchDay] = React.useState("");
+  const { urlMatchDay } = useParams();
 
-    React.useEffect(() => {
-        getMatches()
-            .then((response: GetMatchesResponse) => {
-                setMatchDay(response.matchDay);
-                setMatches(response.matches);
-            });
-    }, [])
+  const [matches, setMatches] = React.useState<ArrayOfMatch['Match']>([]);
+  const [matchDay, setMatchDay] = React.useState(urlMatchDay);
 
+  function setDataFromResponse(response: MatchDayResponse) {
+    setMatchDay(response.matchDay);
+    setMatches(response.matches);
+  }
 
-    return (
+  React.useEffect(() => {
+    if (urlMatchDay) {
+      getMatchDay(urlMatchDay).then((response) =>
+        setDataFromResponse(response)
+      );
+    } else {
+      getMatches().then((response) => setDataFromResponse(response));
+    }
+  }, []);
+
+  return (
     <>
-        <Header matchDay={matchDay} />
-        <MatchList matches={matches} />
-        <MatchDayNavigation matchDay={matchDay}/>
+      <Header matchDay={matchDay} />
+      <MatchList matches={matches} />
+      <MatchDayNavigation matchDay={matchDay} />
     </>
   );
 };

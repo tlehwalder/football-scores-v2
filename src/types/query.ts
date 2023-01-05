@@ -1,6 +1,6 @@
 import { ArrayOfMatch } from './entry';
 
-export type GetMatchesResponse = {
+export type MatchDayResponse = {
   matches: ArrayOfMatch['Match'];
   matchDay: string;
 };

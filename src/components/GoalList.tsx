@@ -1,36 +1,36 @@
-import React, { useState } from "react";
+import React from 'react';
 
-import GoalEntry from "./GoalEntry";
+import { GoalEntry } from './GoalEntry';
+import { Goals } from '../types/entry';
+import { assertString } from '../utils/assert-string';
 
-function calculateScoreFromGoal({ lastScore, goal }) {}
+type GoalListProps = { goals: Goals };
 
-const GoalList = ({ goals }) => {
-  let scoreHome = 0;
+const GoalList: React.FC<GoalListProps> = ({ goals }) => {
+  let scoreHome = '0';
 
   return (
-    <>
-      <ul>
-        {goals.map((goal) => {
-          const {
-            ScoreTeam1: nextScoreHome,
-            MatchMinute: matchMinute,
-            GoalGetterName: playerName,
-          } = goal;
+    <ul className='py-4'>
+      {goals.map((goal) => {
+        const {
+          ScoreTeam1: nextScoreHome,
+          MatchMinute: matchMinute,
+          GoalGetterName: playerName,
+        } = goal;
+        assertString(matchMinute);
+        const matchMinuteString = String(matchMinute);
+        const isHomeGoal = nextScoreHome !== scoreHome;
+        scoreHome = nextScoreHome;
 
-          const isHomeGoal = nextScoreHome !== scoreHome;
-
-          const goalLine = (
-            <GoalEntry
-              isHomeGoal={isHomeGoal}
-              matchMinute={matchMinute}
-              playerName={playerName}
-            />
-          );
-          scoreHome = nextScoreHome;
-          return goalLine;
-        })}
-      </ul>
-    </>
+        return (
+          <GoalEntry
+            isHomeGoal={isHomeGoal}
+            matchMinute={matchMinuteString}
+            playerName={playerName}
+          />
+        );
+      })}
+    </ul>
   );
 };
 
