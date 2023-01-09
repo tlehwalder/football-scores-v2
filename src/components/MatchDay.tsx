@@ -35,7 +35,7 @@ const MatchDay = () => {
   return (
     <>
       <MatchDayHeader matchDay={matchDay} />
-      <div className='h-[396px]'>
+      <div className='min-h-[396px]'>
         <MatchList matches={matches} />
       </div>
       <MatchDayNavigation matchDay={matchDay} />
