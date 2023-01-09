@@ -2,16 +2,16 @@ import React from 'react';
 
 const MatchDayNavigation: React.FC<{ matchDay?: string }> = ({ matchDay }) => {
   const matchDayAsInt = parseInt(matchDay ?? '');
-  const isNotFirstMatchDay = matchDayAsInt >= 1;
-  const isNotLastMatchDay = matchDayAsInt <= 33;
+  const isFirstMatchDay = matchDayAsInt === 1;
+  const isLastMatchDay = matchDayAsInt === 34;
   return (
     <div className='mt-8 text-3xl'>
-      {isNotFirstMatchDay ? (
+      {isFirstMatchDay ? null : (
         <a href={`/${matchDayAsInt - 1}`} title='previous matchday'>
           ⬅️
         </a>
-      ) : null}
-      {isNotLastMatchDay ? (
+      )}
+      {isLastMatchDay ? null : (
         <a
           className='ml-4'
           href={`/${matchDayAsInt + 1}`}
@@ -19,7 +19,7 @@ const MatchDayNavigation: React.FC<{ matchDay?: string }> = ({ matchDay }) => {
         >
           ➡️
         </a>
-      ) : null}
+      )}
     </div>
   );
 };

@@ -5,10 +5,11 @@ import { MatchDayResponse } from '../types/query';
 import { getMatches } from '../query/get-matches';
 import { getMatchDay } from '../query/get-matchday';
 
-import { Header } from './Header';
+import { MatchDayHeader } from './MatchDayHeader';
 import { MatchDayNavigation } from './MatchDayNavigation';
 import { MatchList } from './MatchList';
 import { ArrayOfMatch } from '../types/entry';
+import { useQuery } from 'react-query';
 
 const MatchDay = () => {
   const { urlMatchDay } = useParams();
@@ -21,7 +22,7 @@ const MatchDay = () => {
     setMatches(response.matches);
   }
 
-  React.useEffect(() => {
+  useQuery(urlMatchDay ?? '', () => {
     if (urlMatchDay) {
       getMatchDay(urlMatchDay).then((response) =>
         setDataFromResponse(response)
@@ -29,12 +30,14 @@ const MatchDay = () => {
     } else {
       getMatches().then((response) => setDataFromResponse(response));
     }
-  }, []);
+  });
 
   return (
     <>
-      <Header matchDay={matchDay} />
-      <MatchList matches={matches} />
+      <MatchDayHeader matchDay={matchDay} />
+      <div className='h-[396px]'>
+        <MatchList matches={matches} />
+      </div>
       <MatchDayNavigation matchDay={matchDay} />
     </>
   );
